@@ -9,6 +9,12 @@ YOU_TUBE_URL = 'https://www.youtube.com/watch?v='
 
 
 class Movie():
+    """
+    This class defines a blueprint of our movie object
+    which has a title , storyline, link to poster url,
+    and link to trailer url
+    """
+
     def __init__(self, trailer_youtube_url,
                  storyline, title, poster_image_url):
         self.title = title
@@ -18,14 +24,22 @@ class Movie():
 
 
 def get_trailer(movie_id):
+    """
+    This function takes an movie_id and returns the
+    youtube trailer id of that movie
+    """
     url = 'https://api.themoviedb.org/3/movie/%s/videos?api_key=%s' % (
         movie_id, API_KEY)
     response = urllib.request.urlopen(url)
     data = json.loads(response.read().decode())
-    return (data['results'][0]['key'])
+    return data['results'][0]['key']
 
 
 def get_popular_movies():
+    """
+    This function returns the list of popular movies
+    of type Movie defined above from the movie db api
+    """
     url = BASE_URL + 'api_key=' + API_KEY
     response = urllib.request.urlopen(url)
     data = json.loads(response.read().decode())
